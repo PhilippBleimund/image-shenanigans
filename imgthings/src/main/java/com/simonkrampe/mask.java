@@ -42,6 +42,25 @@ public class mask {
 
     }
 
+    public int generateThreshold(BufferedImage image) {
+
+        int totalPixels = image.getWidth() * image.getHeight();
+        int threshold = 0;
+
+        for(int y = 0; y < image.getHeight(); y++) {
+
+            for(int x = 0; x < image.getWidth(); x++) {
+
+                threshold = threshold + (image.getRGB(x, y) / totalPixels);
+
+            }
+
+        }
+
+        return threshold;
+
+    }
+
     
 
 }
