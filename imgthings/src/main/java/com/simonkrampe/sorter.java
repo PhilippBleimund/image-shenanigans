@@ -14,9 +14,9 @@ public class sorter {
     /*
      * Takes an image that was converted to a mask and sorts highlights.
      */
-    public BufferedImage sortHorizontalDescending(BufferedImage masked, BufferedImage image) {
+    public BufferedImage sortHorizontal(BufferedImage masked, BufferedImage image, String sortOrder, String axisOrder) {
 
-        int[][] mask = convertMaskHorizontal(masked);
+        int[][] mask = convertMask(masked, axisOrder);
 
         int width = masked.getWidth();
         int height = masked.getHeight();
@@ -35,7 +35,16 @@ public class sorter {
                         pixelsToSort[i] = image.getRGB(x+i, y);
                     }
 
-                    Arrays.sort(pixelsToSort, Collections.reverseOrder());  
+                    switch (sortOrder) {
+                        case "asc":
+                            Arrays.sort(pixelsToSort);
+                            break;
+                        case "desc":
+                            Arrays.sort(pixelsToSort, Collections.reverseOrder());  
+                            break;
+                        default:
+                            return null;
+                    }
                     
                     for(int i = 0; i < length; i++){
                         image.setRGB(x+i, y, pixelsToSort[i]);
@@ -49,38 +58,8 @@ public class sorter {
         return image;
 
     }
+    
 
-    
-    public int[] sortDescending(int[] pixelsToSort) {
-    
-        boolean sorted = false;
-        while(sorted == false){
-            boolean correctStreak = true;
-            for(int i = 0; i < pixelsToSort.length-1; i++){
-    
-                if(pixelsToSort[i] < pixelsToSort[i + 1]){
-
-                    int Position1 = pixelsToSort[i];
-                    int Position2 = pixelsToSort[i + 1];
-    
-                    pixelsToSort[i] = Position2;
-                    pixelsToSort[i + 1] = Position1;
-    
-                    correctStreak = false;
-                    
-                }
-            }
-            
-            if(correctStreak == true)
-                sorted = true;
-
-        }
-    
-        return pixelsToSort;
-    
-    }
-    
-    
 
     public int[][] convertMaskHorizontal(BufferedImage image) {
 
@@ -116,6 +95,71 @@ public class sorter {
 
     }
 
+    public int[][] convertMask(BufferedImage image, String axisOrder) {
+
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        int[][] mask = new int[width][height];
+        
+        int white = Color.white.getRGB();
+
+        class countPixels {
+
+            public void whitePixels(int x, int y) {
+
+                int pixel = image.getRGB(x, y);
+                    
+                        if(pixel == white){
+                            int start = x;
+                            int length = 0;
+                            while(pixel == white && x < width){
+                                pixel = image.getRGB(x, y);
+                                x++;
+                                length++;
+                            }
+                            mask[start][y] = length;
+                        }
+
+            }
+
+
+
+        }
+
+        countPixels count = new countPixels();
+
+        switch(axisOrder){
+            case "xy":
+                for(int y = 0; y < height; y++){
+
+                    for(int x = 0; x < width; x++){
+    
+                        count.whitePixels(x, y);
+    
+                    }
+    
+                }
+                break;
+            case "yx":
+                for(int x = 0; x < width; x++){
+
+                    for(int y = 0; y < height; y++){
+    
+                        count.whitePixels(x, y);
+    
+                    }
+    
+                }
+                break;
+            default:
+                return null;
+
+        }
+
+        return mask;
+
+    }
     
 
 
