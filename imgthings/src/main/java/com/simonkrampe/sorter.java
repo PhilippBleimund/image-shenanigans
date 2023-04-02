@@ -2,6 +2,8 @@ package com.simonkrampe;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class sorter {
 
@@ -27,16 +29,16 @@ public class sorter {
 
                 if(length != 0){
                     
-                    int[] pixelsToSort = new int[length];
+                    Integer[] pixelsToSort = new Integer[length];
 
                     for(int i = 0; i < length; i++) {
                         pixelsToSort[i] = image.getRGB(x+i, y);
                     }
 
-                    int[] sorted = sortDescending(pixelsToSort);  
-
+                    Arrays.sort(pixelsToSort, Collections.reverseOrder());  
+                    
                     for(int i = 0; i < length; i++){
-                        image.setRGB(x+i, y, sorted[i]);
+                        image.setRGB(x+i, y, pixelsToSort[i]);
                     }
 
                 }
