@@ -3,6 +3,7 @@ package com.simonkrampe;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.Method;
 
 public class mask {
 
@@ -43,7 +44,7 @@ public class mask {
 
     }
 
-    public int generateThreshold(BufferedImage image) {
+    public int generateThresholdRough(BufferedImage image) {
 
         long allPixelData = 0;
 
@@ -58,8 +59,36 @@ public class mask {
         }
 
         long threshold = allPixelData / (image.getHeight() * image.getWidth());
-        System.out.println(threshold);
         return (int)threshold;
+
+    }
+
+    public int generateThresholdAccurate(BufferedImage image){
+
+        long blueValues = 0;
+        long redValues = 0;
+        long greenValues = 0;
+
+        for(int y = 0; y < image.getHeight(); y++){
+
+            for(int x = 0; x < image.getWidth(); x++) {
+
+                Color currentPixel = new Color(image.getRGB(x, y));
+
+                blueValues = blueValues + currentPixel.getBlue();
+                redValues = redValues + currentPixel.getRed();
+                greenValues = greenValues + currentPixel.getGreen();
+
+            }
+
+        }
+        int totalPixels = image.getHeight() * image.getWidth();
+        redValues = redValues / totalPixels;
+        greenValues = greenValues / totalPixels;
+        blueValues = blueValues / totalPixels;
+
+        Color averageColor = new Color((int)redValues, (int)greenValues, (int)blueValues);
+        return  averageColor.getRGB();
 
     }
 
