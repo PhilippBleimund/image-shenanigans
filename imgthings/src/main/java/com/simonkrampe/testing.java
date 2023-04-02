@@ -3,6 +3,8 @@ package com.simonkrampe;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 
 import javax.imageio.ImageIO;
 
@@ -14,7 +16,9 @@ public class testing {
         mask m = new mask();
         sorter s = new sorter();
 
-        BufferedImage image = h.bufferImage("C:\\Users\\smnkr\\GitHub\\image-shenanigans\\imgthings\\src\\main\\java\\com\\simonkrampe\\test2.jpg");
+        File f = new File(System.getProperty("user.dir") + "/imgthings/src/main/java/com/simonkrampe/test2.jpg");
+
+        BufferedImage image = h.bufferImage(f.toString());
         BufferedImage masked = m.byColor(image, -13000000);
 
         
@@ -26,7 +30,7 @@ public class testing {
             e.printStackTrace();
         }
 
-        BufferedImage ogImage = h.bufferImage("C:\\Users\\smnkr\\GitHub\\image-shenanigans\\imgthings\\src\\main\\java\\com\\simonkrampe\\test2.jpg");
+        BufferedImage ogImage = h.bufferImage(f.toString());
         BufferedImage sorted = s.sortHorizontalDescending(masked, ogImage);
 
         try {
