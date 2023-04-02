@@ -1,6 +1,7 @@
 package com.simonkrampe;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 public class mask {
@@ -44,20 +45,21 @@ public class mask {
 
     public int generateThreshold(BufferedImage image) {
 
-        int totalPixels = image.getWidth() * image.getHeight();
-        int threshold = 0;
+        long allPixelData = 0;
 
         for(int y = 0; y < image.getHeight(); y++) {
 
             for(int x = 0; x < image.getWidth(); x++) {
 
-                threshold = threshold + (image.getRGB(x, y) / totalPixels);
+                allPixelData = allPixelData + image.getRGB(x, y);
 
             }
 
         }
 
-        return threshold;
+        long threshold = allPixelData / (image.getHeight() * image.getWidth());
+        System.out.println(threshold);
+        return (int)threshold;
 
     }
 
