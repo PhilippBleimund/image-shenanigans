@@ -5,16 +5,33 @@ import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import java.util.Collections;
 
+import com.simonkrampe.interfaces.sortingAlgorythm;
+
 public class sorter {
 
     public sorter(){
 
     }
 
-    /*
-     * Takes an image that was converted to a mask and sorts highlights.
-     */
-    public BufferedImage sortHorizontalDescending(BufferedImage masked, BufferedImage image) {
+    public BufferedImage sortHorizontal(BufferedImage masked, BufferedImage image, int ascendingOrDescending) {
+
+        class sortAscending implements sortingAlgorythm {
+            @Override
+            public Integer[] sort(Integer[] toSort) {
+                Arrays.sort(toSort);
+                return toSort;
+            }
+        }
+        class sortDescending implements sortingAlgorythm {
+
+            @Override
+            public Integer[] sort(Integer[] toSort) {
+                Arrays.sort(toSort, Collections.reverseOrder());
+                return toSort;
+            }
+
+        }
+        sortingAlgorythm[] ascendingDescending = {new sortAscending(), new sortDescending()};
 
         int[][] mask = convertMaskHorizontal(masked);
 
@@ -35,7 +52,7 @@ public class sorter {
                         pixelsToSort[i] = image.getRGB(x+i, y);
                     }
 
-                    Arrays.sort(pixelsToSort, Collections.reverseOrder());  
+                    pixelsToSort = ascendingDescending[ascendingOrDescending].sort(pixelsToSort);
                     
                     for(int i = 0; i < length; i++){
                         image.setRGB(x+i, y, pixelsToSort[i]);
