@@ -1,7 +1,9 @@
 package com.simonkrampe;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.Method;
 
 public class mask {
 
