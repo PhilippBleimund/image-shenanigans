@@ -31,7 +31,7 @@ public class testing {
         }
 
         BufferedImage ogImage = h.bufferImage(f.toString());
-        BufferedImage sorted = s.sortHorizontalDescending(masked, ogImage);
+        BufferedImage sorted = s.sortHorizontal(masked, ogImage, 1);
 
         try {
             File savefile = new File("sorted.jpg");
