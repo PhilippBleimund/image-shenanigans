@@ -13,7 +13,12 @@ public class sorter {
 
     }
 
-    public BufferedImage sortHorizontal(BufferedImage masked, BufferedImage image, int ascendingOrDescending) {
+    public enum SortMethod{
+        ASCENDING,
+        DESCENDING
+    }
+
+    public BufferedImage sortHorizontal(BufferedImage masked, BufferedImage image, SortMethod sortingMethod) {
 
         class sortAscending implements sortingAlgorythm {
             @Override
@@ -32,6 +37,14 @@ public class sorter {
 
         }
         sortingAlgorythm[] ascendingDescending = {new sortAscending(), new sortDescending()};
+
+        int ascendingOrDescending;
+        switch(sortingMethod){
+            case ASCENDING:
+                ascendingOrDescending = 0;
+            case DESCENDING:
+                ascendingOrDescending = 1;
+        }
 
         int[][] mask = convertMaskHorizontal(masked);
 
