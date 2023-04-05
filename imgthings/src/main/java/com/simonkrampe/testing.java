@@ -8,6 +8,8 @@ import java.nio.file.Path;
 
 import javax.imageio.ImageIO;
 
+import com.simonkrampe.sorter.SortMethod;
+
 public class testing {
     
     public static void main (String[] args) {
@@ -31,7 +33,7 @@ public class testing {
         }
 
         BufferedImage ogImage = h.bufferImage(f.toString());
-        BufferedImage sorted = s.sortHorizontal(masked, ogImage, 1);
+        BufferedImage sorted = s.sortHorizontal(masked, ogImage, SortMethod.DESCENDING);
 
         try {
             File savefile = new File("sorted.jpg");
