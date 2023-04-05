@@ -1,6 +1,6 @@
 package com.simonkrampe.listener;
 
-import com.simonkrampe.imageEffects.imageEffect.status;
+import com.simonkrampe.imageEffects.renderJob.status;
 
 public class JobEvent {
     private status status;

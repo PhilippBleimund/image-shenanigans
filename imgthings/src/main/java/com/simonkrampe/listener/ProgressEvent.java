@@ -1,7 +1,7 @@
 package com.simonkrampe.listener;
 
 import com.simonkrampe.imageEffects.imageEffect;
-import com.simonkrampe.imageEffects.imageEffect.status;
+import com.simonkrampe.imageEffects.renderJob.status;
 
 public class ProgressEvent {
     private status status;
