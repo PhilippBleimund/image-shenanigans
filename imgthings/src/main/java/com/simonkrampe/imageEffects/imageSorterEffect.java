@@ -12,9 +12,11 @@ public class imageSorterEffect extends imageEffect{
     }
 
     @Override
-    protected Object doInBackground() throws Exception {
-        
-        return null;
+    public void imageTransformation() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'imageTransformation'");
     }
+
+    
     
 }
