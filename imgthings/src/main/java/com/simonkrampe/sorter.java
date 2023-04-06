@@ -38,7 +38,7 @@ public class sorter {
         }
         sortingAlgorythm[] ascendingDescending = {new sortAscending(), new sortDescending()};
 
-        int ascendingOrDescending;
+        int ascendingOrDescending = 0;
         switch(sortingMethod){
             case ASCENDING:
                 ascendingOrDescending = 0;
