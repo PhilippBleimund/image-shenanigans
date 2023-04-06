@@ -2,6 +2,7 @@ package com.simonkrampe.imageEffects;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -35,6 +36,10 @@ public class renderJob extends SwingWorker{
 
     public void addImageEffect(imageEffect effect){
         effects.add(effect);
+    }
+
+    public void addImageEffect(Collection<imageEffect> newEffects){
+        effects.addAll(effects);
     }
 
     public BufferedImage getWorkingImage(){
